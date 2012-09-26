@@ -23,8 +23,8 @@ function tasklink()
 	this.query = {
 		Tasklist : {
 			List : function()
-			{https://developers.google.com/google-apps/tasks/v1/reference/tasklists/list
-				return gapi.client.HttpRequest.execute(gapi.client.request({
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasklists/list
+				gapi.client.HttpRequest.execute(gapi.client.request({
 					"path" : "https://www.googleapis.com/tasks/v1/users/@me/lists"
 				}).execute(function(a,b){console.log(a);});
 			},
