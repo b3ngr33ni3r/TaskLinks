@@ -10,7 +10,7 @@ function tasklink()
 		this.storage.Tasklist.Get = this.query.Tasklist.Get(givenId);
 	};
 	
-	//store results in here
+	//store results in here (non relative to the query api, which simply returns data)
 	this.storage = {
 		Tasklist : {
 			List : {},
@@ -22,68 +22,107 @@ function tasklink()
 	this.query = {
 		Tasklist : {
 			List : function()
-			{
-				return gapi.client.tasks.tasklists.list();
+			{https://developers.google.com/google-apps/tasks/v1/reference/tasklists/list
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/users/@me/lists"
+				});
 			},
 			Get : function(a)
-			{
-				return gapi.client.tasks.tasklists.get({"tasklist" : a});
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasklists/get
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/users/@me/lists/"+a
+				});
 			},
-			Insert : function()
-			{
-				return gapi.client.tasks.tasklists.insert();
+			Insert : function(a)
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasklists/insert
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/users/@me/lists/",
+					"method" : "POST",
+					"body" : a
+				});
 			},
-			Update : function(a)
-			{
-				return gapi.client.tasks.tasklists.update({"tasklist" : a});
+			Update : function(a,b)
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasklists/update
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/users/@me/lists/"+a,
+					"method" : "PUT",
+					"body" : b
+				});
 			},
 			Delete : function(a)
-			{ 
-				return gapi.client.tasks.tasklists.delete({"tasklist" : a});
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasklists/delete
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/users/@me/lists/"+a,
+					"method" : "DELETE"
+				});
 			},
-			Patch : function(a)
-			{
-				return gapi.client.tasks.tasklists.path({"tasklist" : a});
+			Patch : function(a,b)
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasklists/patch
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/users/@me/lists/"+a,
+					"method" : "PATCH",
+					"body" : b
+				});
 			}
 			
 		},
 		Tasks : {
 			List : function(a)
-			{
-				return gapi.client.tasks.tasks.list({"tasklist" : a});//where a is the identifier of a tasklist to list
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasks/list
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/users/@me/lists/"+a+"/tasks"
+				});
 			},
 			Get : function(a,b)
-			{
-				return gapi.client.tasks.tasks.get({"tasklist" : a,"task" : b});
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasks/get
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/lists/"+a+"/tasks/"+b
+				});
 			},
-			Insert : function(a,title,notes)//just title and notes are all i need, so imma implement this like this now
-			{
-				return gapi.client.tasks.tasks.insert({"tasklist": a, "body" : 
-																		{
-																			"title" : title,
-																			"notes" : notes
-																		}
-														});
+			Insert : function(a,b)
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasks/insert
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/lists/"+a+"/tasks/",
+					"method" : "POST",
+					"body" : b
+				});
 			},
-			Update : function(a,b)
-			{
-				return gapi.client.tasks.tasks.update({"tasklist" : a,"task" : b});
+			Update : function(a,b,c)
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasks/update
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/lists/"+a+"/tasks/"+b,
+					"method" : "PUT",
+					"body" : c
+				});
 			},
 			Delete : function(a,b)
-			{
-				return gapi.client.tasks.tasks.delete({"tasklist" : a,"task" : b});
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasks/delete
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/lists/"+a+"/tasks/"+b,
+					"method" : "DELETE"
+				});
 			},
 			Clear : function(a)
-			{
-				return gapi.client.tasks.tasks.clear({"tasklist" : a});
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasks/clear
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/lists/"+a+"/clear",
+					"method" : "POST"
+				});
 			},
 			Move : function(a,b,parent)
-			{
-				return gapi.client.tasks.tasks.move({"tasklist" : a,"task" : b,"parent" : parent});
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasks/move
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/lists/"+a+"/tasks/"+b+"/move",
+					"method" : "POST"
+				});
 			},
-			Patch : function(a,b)
-			{
-				return gapi.client.tasks.tasks.patch({"tasklist" : a,"task" : b});
+			Patch : function(a,b,c)
+			{//https://developers.google.com/google-apps/tasks/v1/reference/tasks/patch
+				return gapi.request({
+					"path" : "https://www.googleapis.com/tasks/v1/lists/"+a+"/tasks/"+b,
+					"method" : "PATCH",
+					"body" : c
+				});
 			},
 		}
 		
