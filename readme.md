@@ -1,7 +1,7 @@
 TaskLists
 ===============
  TaskLists is designed for one purpose, storing links, in you're google tasks, to allow link saving across platform, without another account.
- **Having a google account is *required* ** and also, come on, if you're using chrome in the first place, i hope you sync with your google account.
+ **Having a google account is _required_** and also, come on, if you're using chrome in the first place, i hope you sync with your google account.
  This extension is **written entirely in javascript**.
  
  To use it, checkout [The Examples](./examples) and work from there, or **just install the extension and figure it out** that's how i roll.
