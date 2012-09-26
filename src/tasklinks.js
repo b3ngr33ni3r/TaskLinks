@@ -8,6 +8,7 @@ function tasklink()
 		this.storage.Tasklist.List = this.query.Tasklist.List();
 		var givenId="";//parse this from the above
 		this.storage.Tasklist.Get = this.query.Tasklist.Get(givenId);
+		console.log(this.storage);
 	};
 	
 	//store results in here (non relative to the query api, which simply returns data)
